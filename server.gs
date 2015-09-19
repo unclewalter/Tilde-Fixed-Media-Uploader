@@ -8,7 +8,7 @@ function uploadFiles(form) {
     
     var dropbox         = "Fixed Media Submissions";
 
-    // Vince: Create a spreadsheet with these columns: Name, Email, Sound File URL, PDF Bio URL
+    // Vince: Create a spreadsheet with these columns: Name, Email, Sound File Name, PDF Bio Name, Sound File URL, PDF Bio File URL
 
     // Place the spreadsheet ID in this variable.
     var spreadsheetId   = "1rsnkohfEo7WwzYzeEaFK6ykNvV9duRMwLQQWhuqtfwQ"; 
@@ -35,14 +35,19 @@ function uploadFiles(form) {
     soundFile.setDescription("Uploaded by " + form.name + " | " + form.email);
     pdfBioFile.setDescription("Uploaded by " + form.name + " | " + form.email);
 
-    var soundFileURL   = soundFile.getName();
-    var pdfBioFileURL  = pdfBioFile.getName();
+    var soundFileName   = soundFile.getName();
+    var pdfBioFileName  = pdfBioFile.getName();
+
+    var soundFileUrl   = soundFile.getUrl();
+    var pdfBioFileUrl  = pdfBioFile.getUrl();
 
     spreadsheet.appendRow(
       [name, 
       email, 
-      soundFileURL, 
-      pdfBioFileURL
+      soundFileName, 
+      pdfBioFileName,
+      soundFileUrl,
+      pdfBioFileUrl
     ]);
         
     return "Your submission has been successfully uploaded.";
