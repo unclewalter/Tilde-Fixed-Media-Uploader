@@ -1,0 +1,26 @@
+<form id="fixed-media-submission">
+    <input type="text" name="name" placeholder="Your name..">
+    <input type="email" name="email" placeholder="Your email..">
+    <label for="sound-file">Media file</label>
+    <input type="file" name="sound" id="sound-file">
+    <label for="pdf-bio-file">PDF Biography</label>
+    <input type="file" name="pdfBio" id="pdf-bio-file">
+    <input type="submit" value="Upload File" 
+           onclick="this.value='Uploading..';
+                    google.script.run.withSuccessHandler(fileUploaded)
+                    .uploadFiles(this.parentNode);
+                    return false;">
+</form>
+
+<div id="output"></div>
+
+<script>
+    function fileUploaded(status) {
+        document.getElementById('fixed-media-submission').style.display = 'none';
+        document.getElementById('output').innerHTML = status;
+    }
+</script>
+
+<style>
+ input, label { display:block; margin: 20px; }
+</style>
