@@ -1,2 +1,5 @@
 s3-policy
 rootkey.csv
+.sass-cache
+sass/
+gulpfile.js

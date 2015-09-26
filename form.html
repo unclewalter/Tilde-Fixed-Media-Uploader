@@ -1,88 +1,44 @@
 <!DOCTYPE html> 
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="css/app.css">
   
 </head>
 <body>
-  <script type="text/javascript">
-
-      function uploadFile(file, name, email, kind) {
-        var fd = new FormData();
-
-        var key = "uploads/" + name + "-" + email + "/${filename}";
-
-
-        // Populate the Post paramters.
-        fd.append('key', key);
-        fd.append('AWSAccessKeyId', 'AKIAJSK33JUGBWFOZ2YQ');
-        fd.append('acl', 'private');
-        fd.append('policy', "eyJleHBpcmF0aW9uIjogIjIwMTYtMjQtMDFUMDA6MDA6MDBaIiwgICJjb25kaXRpb25zIjogWyAgICAgeyJidWNrZXQiOiAidGlsZGUtZml4ZWQtbWVkaWEifSwgICAgIFsic3RhcnRzLXdpdGgiLCAiJGtleSIsICJ1cGxvYWRzLyJdLCAgICB7ImFjbCI6ICJwcml2YXRlIn0sICAgIFsic3RhcnRzLXdpdGgiLCAiJENvbnRlbnQtVHlwZSIsICIiXSwgIF19")
-        fd.append('signature',"JLFiA+Z+jPSNsS0DHHAXKIu5/Cc=")
-        fd.append('content-type', '');
-        fd.append("file",file);
-
-        var xhr = new XMLHttpRequest();
-
-        xhr.upload.addEventListener("progress", function(evt) {
-          if (evt.lengthComputable) {
-            var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-            document.getElementById('progressNumber-' + kind).innerHTML = percentComplete.toString() + '%';
-          }
-          else {
-            document.getElementById('progressNumber-' + kind).innerHTML = 'unable to compute';
-          }
-        }, false);
-
-        xhr.addEventListener("load", function (evt) {
-          /* This event is raised when the server send back a response */
-          document.getElementById('progressNumber-' + kind).innerHTML = "Done - " + evt.target.responseText;
-        }, false);
-
-        xhr.addEventListener("error", function (evt) {
-          document.getElementById('progressNumber-' + kind).innerHTML = "There was an error attempting to upload the file." + evt;
-        }, false);
-
-        xhr.addEventListener("abort", function uploadCanceled(evt) {
-          document.getElementById('progressNumber-' + kind).innerHTML = "The upload has been cancelled by the user or the browser dropped the connection.";
-        }, false);
-
-        xhr.open('POST', 'https://tilde-fixed-media.s3.amazonaws.com/', true); //MUST BE LAST LINE BEFORE YOU SEND 
-
-        xhr.send(fd);
-      }
-
-      function submit() {
-        var soundfile = document.getElementById('soundfile').files[0];
-        var biofile   = document.getElementById('biofile').files[0];
-        var name      = document.getElementById('name').value.replace(/ /g,'-');
-        var email     = document.getElementById('email').value;
+  <div class="container">
+    <form id="media-upload-form" enctype="multipart/form-data" method="post">
+      <div class="row">
+        <input type="text" id="name" placeholder="name.." data-validate="required" />
+        <input type="email" id="email" placeholder="email.." data-validate="email,required" />
+      </div>
+      <div class="row">
+        <label for="soundfile">Sound file</label>
+        <input type="file" name="soundfile" id="soundfile" data-validate="required" />
         
-        uploadFile(soundfile, name, email, "soundfile");
-        uploadFile(biofile, name, email, "bio");
-      }
+        <div class="progress-bar-indication">
+          <span id="progress-bar-sound" class="meter" style="width: 0%">
+            <p>&nbsp;</p>
+          </span>
+        </div>
 
-  </script>
-  <div class="container"></div>
-
-  <!-- <form id="media-upload-form" enctype="multipart/form-data" method="post"> -->
+        <label for="biofile">PDF biography</label>
+        <input type="file" name="biofile" id="biofile" data-validate="required" />
+        
+        <div class="progress-bar-indication">
+          <span id="progress-bar-bio" class="meter" style="width: 0%">
+            <p>&nbsp;</p>
+          </span>
+        </div>
+      </div>
+      <div id="fileName"></div>
+      <div id="fileSize"></div>
+      <div id="fileType"></div>
+    </form>
+    <br />
     <div class="row">
-      <input type="text" id="name" placeholder="name.." />
-      <input type="email" id="email" placeholder="email.." />
+      <button onclick="submit()" value="Upload">Submit</button>
     </div>
-    <div class="row">
-      <label for="soundfile">Sound file</label><br />
-      <input type="file" name="soundfile" id="soundfile" /></br />
-      <div id="progressNumber-soundfile">&nbsp;</div>
-
-      <label for="biofile">PDF biography</label><br />
-      <input type="file" name="biofile" id="biofile" /><br />
-      <div id="progressNumber-bio">&nbsp;</div>
-    </div>
-    <div id="fileName"></div>
-    <div id="fileSize"></div>
-    <div id="fileType"></div>
-    <div class="row">
-      <input type="button" onclick="submit()" value="Upload" />
-    </div>
+  </div>
+  <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
