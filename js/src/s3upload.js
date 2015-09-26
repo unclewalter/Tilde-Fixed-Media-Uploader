@@ -53,11 +53,6 @@ function submit() {
     var name = document.getElementById('name').value.replace(/ /g, '-');
     var email = document.getElementById('email').value;
 
-    console.log($("#media-upload-form").validate());
-
-    // if ($("#media-upload-form").validate()) {
-      // console.log("valid form");
-      uploadFile(soundfile, name, email, "sound");
-      uploadFile(biofile, name, email, "bio");
-    // };
+    uploadFile(soundfile, name, email, "sound");
+    uploadFile(biofile, name, email, "bio");
 };
