@@ -21,7 +21,7 @@ function uploadFile(file, name, email, kind) {
 
     xhr.upload.addEventListener("progress", function(evt) {
         if (evt.lengthComputable) {
-            var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+            var percentComplete = Math.ceil(evt.loaded * 100 / evt.total);
             progressBar.innerHTML = "<p>" + percentComplete.toString() + '%</p>';
             progressBar.style.width = percentComplete.toString() + '%';
         } else {
@@ -52,6 +52,8 @@ function submit() {
     var biofile = document.getElementById('biofile').files[0];
     var name = document.getElementById('name').value.replace(/ /g, '-');
     var email = document.getElementById('email').value;
+
+    console.log($("#media-upload-form").validate());
 
     uploadFile(soundfile, name, email, "sound");
     uploadFile(biofile, name, email, "bio");
