@@ -1,3 +1,6 @@
+var uploads = [];
+var submitButton = document.getElementById('submit-button');
+
 function uploadFile(file, name, email, kind) {
     var fd = new FormData();
 
@@ -19,6 +22,10 @@ function uploadFile(file, name, email, kind) {
 
     var progressBar = document.getElementById('progress-bar-' + kind);
 
+    uploads.push(false);
+
+    var uploadsIndex = uploads.length - 1;
+
     xhr.upload.addEventListener("progress", function(evt) {
         if (evt.lengthComputable) {
             var percentComplete = Math.ceil(evt.loaded * 100 / evt.total);
@@ -29,9 +36,27 @@ function uploadFile(file, name, email, kind) {
         }
     }, false);
 
+    submitButton.innerHTML = 'Uploading...';  
+    submitButton.disabled = true;
+
+
     xhr.addEventListener("load", function(evt) {
         /* This event is raised when the server send back a response */
         progressBar.innerHTML = "<p>Done! " + evt.target.responseText + "</p>";
+
+        uploads[uploadsIndex] = true;
+
+        var done = true;
+        for (var i = 0; i < uploads.length; i++) {
+          if (!uploads[i]) {
+            done = false;
+          }
+        }
+
+        if (done) {
+          submitButton.innerHTML = "Submission successful!";
+        }
+
     }, false);
 
     xhr.addEventListener("error", function(evt) {
