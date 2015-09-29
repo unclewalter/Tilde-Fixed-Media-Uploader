@@ -1,12 +1,12 @@
 var uploads = [];
 var submitButton = document.getElementById('submit-button');
 
-function uploadFile(file, name, email, kind) {
+function uploadFile(file, name, email, kind, date) {
     var fd = new FormData();
 
     console.log("Upload");
 
-    var key = "uploads/" + email + "_" + name + "/${filename}";
+    var key = "uploads/" + date + "_" + email + "_" + name + "/${filename}";
 
 
     // Populate the Post paramters.
@@ -74,12 +74,13 @@ function uploadFile(file, name, email, kind) {
 
 function submit() {
     var soundfile = document.getElementById('soundfile').files[0];
-    var biofile = document.getElementById('biofile').files[0];
-    var name = document.getElementById('name').value.replace(/ /g, '-');
-    var email = document.getElementById('email').value;
+    var biofile   = document.getElementById('biofile').files[0];
+    var name      = document.getElementById('name').value.replace(/ /g, '-').toLowerCase();
+    var email     = document.getElementById('email').value.toLowerCase();
+    var now       = Date.now().valueOf();
 
     console.log($("#media-upload-form").validate());
 
-    uploadFile(soundfile, name, email, "sound");
-    uploadFile(biofile, name, email, "bio");
+    uploadFile(soundfile, name, email, "sound", now);
+    uploadFile(biofile, name, email, "bio", now);
 };
