@@ -1,0 +1,24 @@
+# Temp editor files
+*~
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+build
+test
+
+*.zip
+
+# node-waf configuration
+.lock-wscript
+
+node_modules
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
