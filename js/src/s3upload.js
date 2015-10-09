@@ -9,12 +9,12 @@ function uploadFile(file, name, email, kind, date) {
     var key = "uploads/" + date + "_" + email + "_" + name + "/${filename}";
 
 
-    // Populate the Post paramters.
+    // Populate the Post parameters.
     fd.append('key', key);
     fd.append('AWSAccessKeyId', 'AKIAJSK33JUGBWFOZ2YQ');
     fd.append('acl', 'private');
-    fd.append('policy', "eyJleHBpcmF0aW9uIjogIjIwMTYtMjQtMDFUMDA6MDA6MDBaIiwgICJjb25kaXRpb25zIjogWyAgICAgeyJidWNrZXQiOiAidGlsZGUtZml4ZWQtbWVkaWEifSwgICAgIFsic3RhcnRzLXdpdGgiLCAiJGtleSIsICJ1cGxvYWRzLyJdLCAgICB7ImFjbCI6ICJwcml2YXRlIn0sICAgIFsic3RhcnRzLXdpdGgiLCAiJENvbnRlbnQtVHlwZSIsICIiXSwgIF19");
-    fd.append('signature', "JLFiA+Z+jPSNsS0DHHAXKIu5/Cc=");
+    fd.append('policy', "eyJleHBpcmF0aW9uIjogIjIwMTYtMjQtMDFUMDA6MDA6MDBaIiwgICJjb25kaXRpb25zIjogWyAgICAgeyJidWNrZXQiOiAidGlsZGUtZml4ZWQtbWVkaWEtMiJ9LCAgICAgWyJzdGFydHMtd2l0aCIsICIka2V5IiwgInVwbG9hZHMvIl0sICAgIHsiYWNsIjogInByaXZhdGUifSwgICAgWyJzdGFydHMtd2l0aCIsICIkQ29udGVudC1UeXBlIiwgIiJdLCAgXX0=");
+    fd.append('signature', "1NwsqVGnXDX5PYoixDZc9XH7R2o=");
     fd.append('content-type', '');
     fd.append("file", file);
 
@@ -67,7 +67,7 @@ function uploadFile(file, name, email, kind, date) {
         progressBar.innerHTML = "<p>The upload has been cancelled by the user or the browser dropped the connection.</p>";
     }, false);
 
-    xhr.open('POST', 'https://tilde-fixed-media.s3.amazonaws.com/', true); //MUST BE LAST LINE BEFORE YOU SEND 
+    xhr.open('POST', 'https://tilde-fixed-media-2.s3-eu-west-1.amazonaws.com/', true); //MUST BE LAST LINE BEFORE YOU SEND 
 
     xhr.send(fd);
 }
